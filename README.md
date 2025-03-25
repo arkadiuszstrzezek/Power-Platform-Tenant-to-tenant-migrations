@@ -72,5 +72,13 @@ Get-AdminFlow |
     Sort-Object DisplayName | 
     Export-Csv -Path "C:\PowerAutomate_Flows_List.csv" -NoTypeInformation -Encoding UTF8 
 ```
+## Other Simple cmdlet 
+### Get-AdminPowerAppConnector
+The Get-AdminPowerAppConnector cmdlet looks up information about one or more custom connectors depending on parameters. Use Get-Help Get-AdminPowerAppConnector -Examples for more detail.
 
+Returns all custom connector from all environments where the calling user is an Environment Admin. For Global admins, this will search across all environments in the tenant.
+
+```powershell
+Get-AdminPowerAppConnector
+```
 
