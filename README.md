@@ -2,8 +2,6 @@
 ## Before you get started
 Be aware of the following before starting a tenant-to-tenant migration.
 
->`Note
-
 >Tenant-to-tenant migrations will be supported on Managed Environments in the future.
 
 - Supported environment types: Production and sandbox only.
@@ -27,6 +25,18 @@ Be sure to complete the following prerequisites before you start the migration p
 - The PowerShell for Power Platform Administrators module is the recommended PowerShell module for interacting with admin capabilities. Learn more in Get started with PowerShell for Power Platform Administrators.
 
 ## How to use other script to report
+### Install Tools
+```powershell
+# Install PowerShell for Power Platform Administrators (both source and target admins)
+
+Install-Module -Name Microsoft.PowerApps.Administration.PowerShell
+Update-Module -Name Microsoft.PowerApps.Administration.PowerShell 
+```
+### Login to Power Apps
+```powershell
+# Sign in to Microsoft Power Platform (both source and target admins)
+Add-PowerAppsAccount
+```
 ### Method 1
 Super fast way to get a complete list of all of the flows and canvas apps in your organisations tenant
 ```powershell
