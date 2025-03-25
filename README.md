@@ -25,3 +25,42 @@ Be sure to complete the following prerequisites before you start the migration p
 - Assign licenses.
 - You must have admin privileges with Power Platform or Dynamics 365 to perform the migration.
 - The PowerShell for Power Platform Administrators module is the recommended PowerShell module for interacting with admin capabilities. Learn more in Get started with PowerShell for Power Platform Administrators.
+
+## How to use other script to report
+### Method 1
+Super fast way to get a complete list of all of the flows and canvas apps in your organisations tenant
+```powershell
+clear-host
+Import-Module -Name Microsoft.PowerApps.Administration.PowerShell
+Add-PowerAppsAccount
+$environments = Get-AdminPowerAppEnvironment
+ForEach($environment in $environments){
+write-host -ForegroundColor Yellow "Apps In" $environment.DisplayName
+write-host -ForegroundColor White (Get-AdminPowerApp -EnvironmentName $environment.EnvironmentName |Select DisplayName | write-host -ForegroundColor White )
+write-host -ForegroundColor Yellow "Flows In" $environment.DisplayName
+write-host -ForegroundColor White (Get-AdminFlow -EnvironmentName $environment.EnvironmentName |Select DisplayName | write-host -ForegroundColor White)
+} 
+```
+### Method 2
+List and Export to csv DisplayName, CreatedBy, Owner
+```powershell
+# Logowanie do Power Platform
+Add-PowerAppsAccount
+
+# Pobranie aplikacji, posortowanie alfabetycznie i eksport do pliku CSV
+Get-AdminPowerApp | 
+    Select-Object DisplayName, CreatedBy, Owner, EnvironmentName | 
+    Sort-Object DisplayName | 
+    Export-Csv -Path "C:\PowerApps_List.csv" -NoTypeInformation -Encoding UTF8
+
+# Logowanie do Power Platform
+Add-PowerAppsAccount
+
+# Pobranie przepływów, posortowanie alfabetycznie i eksport do pliku CSV
+Get-AdminFlow | 
+    Select-Object DisplayName, CreatedBy, EnvironmentName | 
+    Sort-Object DisplayName | 
+    Export-Csv -Path "C:\PowerAutomate_Flows_List.csv" -NoTypeInformation -Encoding UTF8 
+```
+
+
